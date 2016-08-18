@@ -15,7 +15,7 @@ import com.google.android.exoplayer.audio.AudioCapabilities;
 import com.google.android.exoplayer.hls.DefaultHlsTrackSelector;
 import com.google.android.exoplayer.hls.HlsChunkSource;
 import com.google.android.exoplayer.hls.HlsMasterPlaylist;
-import com.google.android.exoplayer.hls.HlsPlaylist;
+import com.google.android.exoplayer.hls.HlsPlaylist;TrackRenderer textTrackRenderer
 import com.google.android.exoplayer.hls.HlsPlaylistParser;
 import com.google.android.exoplayer.hls.HlsSampleSource;
 import com.google.android.exoplayer.hls.PtsTimestampAdjusterProvider;
@@ -115,18 +115,18 @@ public class HlsRenderersBuilder implements TrackRenderersBuilder, ManifestFetch
     if (manifest instanceof HlsMasterPlaylist) {
       preferWebvtt = !((HlsMasterPlaylist) manifest).subtitles.isEmpty();
     }
-    TrackRenderer textTrackRenderer;
-    if (preferWebvtt) {
-      DataSource textDataSource = new DefaultUriDataSource(context, bandwidthMeter, userAgent);
-      HlsChunkSource textChunkSource = new HlsChunkSource(false, textDataSource,
-        url, manifest, DefaultHlsTrackSelector.newVttInstance(), bandwidthMeter,
-        timestampAdjusterProvider, HlsChunkSource.ADAPTIVE_MODE_SPLICE);
-      HlsSampleSource textSampleSource = new HlsSampleSource(textChunkSource, loadControl,
-        TEXT_BUFFER_SEGMENTS * BUFFER_SEGMENT_SIZE, eventHandler, null, TRACK_TEXT_INDEX);
-      textTrackRenderer = new TextTrackRenderer(textSampleSource, textRenderer, eventHandler.getLooper());
-    } else {
-      textTrackRenderer = new Eia608TrackRenderer(sampleSource, textRenderer, eventHandler.getLooper());
-    }
+    TrackRenderer textTrackRenderer = null;
+    // if (preferWebvtt) {
+    //   DataSource textDataSource = new DefaultUriDataSource(context, bandwidthMeter, userAgent);
+    //   HlsChunkSource textChunkSource = new HlsChunkSource(false, textDataSource,
+    //     url, manifest, DefaultHlsTrackSelector.newVttInstance(), bandwidthMeter,
+    //     timestampAdjusterProvider, HlsChunkSource.ADAPTIVE_MODE_SPLICE);
+    //   HlsSampleSource textSampleSource = new HlsSampleSource(textChunkSource, loadControl,
+    //     TEXT_BUFFER_SEGMENTS * BUFFER_SEGMENT_SIZE, eventHandler, null, TRACK_TEXT_INDEX);
+    //   textTrackRenderer = new TextTrackRenderer(textSampleSource, textRenderer, eventHandler.getLooper());
+    // } else {
+    //   textTrackRenderer = new Eia608TrackRenderer(sampleSource, textRenderer, eventHandler.getLooper());
+    // }
 
     final TrackRenderer[] trackRenderers = new TrackRenderer[TRACK_RENDER_COUNT];
     trackRenderers[TRACK_VIDEO_INDEX] = videoTrackRenderer;
