@@ -106,11 +106,7 @@ export default class MediaPlayerView extends React.Component {
     }
 
     return (
-      <View
-        style={this.props.style}
-        onLayout={this._onLayout.bind(this)}>
-
-        <RCTMediaPlayerView
+      <RCTMediaPlayerView
           {...this.props}
           style={{flex: 1, alignSelf: 'stretch'}}
           ref={RCT_MEDIA_PLAYER_VIEW_REF}
@@ -122,10 +118,6 @@ export default class MediaPlayerView extends React.Component {
           onPlayerFinished={this._onPlayerFinished.bind(this)}
           onPlayerBufferChange={this._onPlayerBufferChange.bind(this)}
         />
-
-        {posterView}
-        {controlsView}
-      </View>
     );
   }
 
